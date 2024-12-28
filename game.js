@@ -1,6 +1,15 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('startButton');
+const backgroundMusic = document.getElementById('backgroundMusic');
+const coinSound = document.getElementById('coinSound');
+const hurtSound = document.getElementById('hurtSound');
+const loginContainer = document.getElementById('loginContainer');
+const gameContainer = document.querySelector('.game-container');
+
+const runningStatusElement = document.getElementById('runningStatus');
+const scoreElement = document.getElementById('score');
+const coinsCollectedElement = document.getElementById('coinsCollected');
 
 const characterImage = new Image();
 characterImage.src = 'path/to/character-sprite.png'; // Character sprite sheet
@@ -10,8 +19,12 @@ const trainImage = new Image();
 trainImage.src = 'path/to/train-sprite.png'; // Train sprite sheet
 const snowflakeImage = new Image();
 snowflakeImage.src = 'path/to/snowflake.png'; // Snowflake sprite for winter weather
+const policeImage = new Image();
+policeImage.src = 'path/to/police-sprite.png'; // Police sprite sheet
 
 let coinsCollected = 0;
+let score = 0;
+let soundEnabled = true;
 
 const player = {
     x: 50,
@@ -19,10 +32,22 @@ const player = {
     width: 50,
     height: 50,
     speed: 5,
+    originalSpeed: 5,
     frameX: 0,
     frameY: 0,
     moving: false,
-    outfit: 'default'
+    outfit: 'default',
+    hurt: false
+};
+
+const police = {
+    x: player.x - 60,
+    y: player.y,
+    width: 50,
+    height: 50,
+    frameX: 0,
+    frameY: 0,
+    visible: false
 };
 
 const coins = [
@@ -56,15 +81,26 @@ let keys = {};
 document.addEventListener('keydown', (event) => {
     keys[event.keyCode] = true;
     player.moving = true;
+    updateRunningStatus(true);
 });
 document.addEventListener('keyup', (event) => {
     delete keys[event.keyCode];
     player.moving = false;
+    updateRunningStatus(false);
 });
 
 function drawCharacter() {
     const outfitOffset = player.outfit === 'redOutfit' ? 50 : player.outfit === 'blueOutfit' ? 100 : 0;
     ctx.drawImage(characterImage, outfitOffset, 0, player.width, player.height, player.x, player.y, player.width, player.height);
+}
+
+function drawPolice() {
+    if (police.visible) {
+        ctx.drawImage(policeImage, police.frameX * police.width, police.frameY * police.height, police.width, police.height, police.x, police.y, police.width, police.height);
+        // Police follows player
+        police.x = player.x - 60;
+        police.y = player.y;
+    }
 }
 
 function drawCoins() {
@@ -91,70 +127,4 @@ function drawSnowflakes() {
 function movePlayer() {
     if (keys[37]) player.x -= player.speed; // left arrow
     if (keys[39]) player.x += player.speed; // right arrow
-    if (keys[38]) player.y -= player.speed; // up arrow
-    if (keys[40]) player.y += player.speed; // down arrow
-
-    if (player.moving) {
-        player.frameX = (player.frameX + 1) % 4; // Cycle through frames
-    }
-}
-
-function moveTrain() {
-    train.x -= train.speed;
-    if (train.x < -train.width) {
-        train.x = canvas.width;
-    }
-    train.frameX = (train.frameX + 1) % 4; // Cycle through frames
-}
-
-function checkCollisions() {
-    coins.forEach((coin, index) => {
-        if (player.x < coin.x + 32 && player.x + player.width > coin.x && player.y < coin.y + 32 && player.y + player.height > coin.y) {
-            coins.splice(index, 1);
-            coinsCollected += 10;
-            console.log('Coin collected! Total coins: ' + coinsCollected);
-        }
-    });
-}
-
-function buyItem(item) {
-    if (coinsCollected >= 100) {
-        player.outfit = item;
-        coinsCollected -= 100;
-        console.log('Bought ' + item + '! Remaining coins: ' + coinsCollected);
-    } else {
-        console.log('Not enough coins to buy ' + item);
-    }
-}
-
-function openStore() {
-    document.getElementById('store').style.display = 'block';
-}
-
-function closeStore() {
-    document.getElementById('store').style.display = 'none';
-}
-
-function startGame() {
-    document.getElementById('startButton').style.display = 'none';
-    document.getElementById('gameCanvas').style.display = 'block';
-    gameLoop();
-}
-
-startButton.addEventListener('click', startGame);
-
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCharacter();
-    drawCoins();
-    drawTrain();
-    drawSnowflakes();
-    movePlayer();
-    moveTrain();
-    checkCollisions();
-    requestAnimationFrame(gameLoop);
-}
-
-characterImage.onload = () => {
-    // Only start the game loop if the start button is clicked
-};
+    if (keys[38]) player.y[_{{{CITATION{{{_1{](https://github.com/edsyang/blog/tree/2ce48a2788db8d4f4b5f5f5dc8c388799ea5c0c2/docs%2Fcourse%2Fvue%2F13-Vue.js-D.part%20four.md)
