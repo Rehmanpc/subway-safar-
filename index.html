@@ -8,15 +8,34 @@
         canvas {
             border: 1px solid black;
         }
+        .store-container {
+            display: none;
+            animation: fadeIn 1s forwards;
+        }
+        .start-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 24px;
+            cursor: pointer;
+            animation: fadeIn 1s forwards, pulse 2s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <div>
+    <button id="startButton" class="start-button">Start Game</button>
+    <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
+    <div id="store" class="store-container">
         <h2>Store</h2>
         <button onclick="buyItem('redOutfit')">Buy Red Outfit (100 Coins)</button>
         <button onclick="buyItem('blueOutfit')">Buy Blue Outfit (100 Coins)</button>
-    </div>
-    <script src="game.js"></script>
-</body>
-</html>
+        <!-- Add more outfit buttons here -->
