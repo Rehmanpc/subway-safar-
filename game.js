@@ -127,4 +127,4 @@ function drawSnowflakes() {
 function movePlayer() {
     if (keys[37]) player.x -= player.speed; // left arrow
     if (keys[39]) player.x += player.speed; // right arrow
-    if (keys[38]) player.y[_{{{CITATION{{{_1{](https://github.com/edsyang/blog/tree/2ce48a2788db8d4f4b5f5f5dc8c388799ea5c0c2/docs%2Fcourse%2Fvue%2F13-Vue.js-D.part%20four.md)
+    if (keys[38]) player.y -= player.speed[_{{{CITATION{{{_1{](https://github.com/edsyang/blog/tree/2ce48a2788db8d4f4b5f5f5dc8c388799ea5c0c2/docs%2Fcourse%2Fvue%2F13-Vue.js-D.part%20four.md)
